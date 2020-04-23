@@ -1,3 +1,5 @@
 {
-    "mongoURI": "mongodb+srv://node-complete:jZ7hhyZl5b5smXig@cluster0-k1a0c.mongodb.net/contactmanager?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://node-complete:jZ7hhyZl5b5smXig@cluster0-k1a0c.mongodb.net/contactmanager?retryWrites=true&w=majority",
+    "JWT_SECRET": "teahioaddasddgewradfasdfasdfasd",
+    "JWT_EXPIRE": 360000 
 }

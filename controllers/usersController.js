@@ -15,8 +15,10 @@ exports.registerUser = async (req, res, next) => {
       return res.status(400).json({ error: "User already exists" });
     }
     user = await User.create({ name, email, password });
-    return res.json({ message: "User created", data: user });
+    const token = user.getSignedJwtToken();
+    return res.json({ message: "User created", token: token });
   } catch (err) {
+      console.log(err);
     return res.status(500).json({ error: "Server error" });
   }
 
