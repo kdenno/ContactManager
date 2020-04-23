@@ -1,10 +1,19 @@
 const User = require("../models/User");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const { validationResult } = require("express-validator");
 
-exports.getUser = () => {
-  res.json({ message: "get user" });
+exports.getUser = async (req, res, next) => {
+  const userId = req.userId;
+  try {
+
+  const user = await User.findById(userId).select("-password");
+  res.json({ data: user });
+    
+  } catch (error) {
+    console.log(error);
+    
+  }
   next();
 };
 
@@ -22,15 +31,13 @@ exports.authenticate = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
-    }else {
-
+    } else {
     }
     // get token
     const token = user.getSignedJwtToken();
-    return res.status(200).json({ token: token});
-
+    return res.status(200).json({ token: token });
   } catch (err) {
-      console.log(err);
+    console.log(err);
     return res.status(500).json({ error: "Server error" });
   }
   next();

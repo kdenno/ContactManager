@@ -2,8 +2,9 @@ const express = require("express");
 const routes = express.Router();
 const { authenticate, getUser } = require("../controllers/authController");
 const { check } = require("express-validator");
+const authMiddleware = require('../middleware/authMiddleware');
 
-routes.get("/", getUser);
+routes.get("/", authMiddleware, getUser);
 routes.post("/",
   [
     check("email", "Please Enter Email").isEmail(),
