@@ -41,5 +41,10 @@ UserSchema.methods.getSignedJwtToken = function() {
         expiresIn: config.get('JWT_EXPIRE'),
       });
 }
+// create compare passwords method
+UserSchema.methods.comparePasswords = async function(enteredpassword) {
+    return await bcrypt.compare(enteredpassword, this.password);
+
+}
 
 module.exports = mongoose.model("user", UserSchema);
