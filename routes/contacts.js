@@ -14,7 +14,7 @@ routes.post("/", [authMiddleware, [
   check('name', "Please provide name")
 
 ]], createContacts);
-routes.put("/:id", updateContacts);
-routes.delete("/:id", deleteContacts);
+routes.put("/:id", authMiddleware, updateContacts);
+routes.delete("/:id", authMiddleware, deleteContacts);
 
 module.exports = routes;
