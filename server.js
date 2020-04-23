@@ -4,6 +4,10 @@ const PORT = process.env.PORT || 3000;
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const contactsRoutes = require('./routes/contacts');
+const connectDB = require('./config/db');
+
+// connect to database
+connectDB();
 
 
 app.use('/api/auth', authRoutes);
