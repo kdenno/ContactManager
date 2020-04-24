@@ -10,15 +10,15 @@ import {
   CLEAR_FILTER,
 } from "../ActionTypes";
 
-const contactReducer = (state, action) => {
+export default (state, action) => {
   switch (action.type) {
     case ADD_CONTACT:
       return {
-        ...state
+        ...state,
+        contacts: [...state.contacts, action.payload]
       };
     default:
       return state;
   }
 };
 
-export default contactReducer;
