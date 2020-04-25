@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 
 const Navbar = ({ title, icon }) => {
   return (
-    <Fragment className="navbar">
+    <Fragment>
+      <div className="navbar">
       <div className="navbar bg-primary">
         <i className={icon}></i> {title}
         <ul>
@@ -15,6 +16,7 @@ const Navbar = ({ title, icon }) => {
             <Link to="/about">About</Link>
           </li>
         </ul>
+      </div>
       </div>
     </Fragment>
   );

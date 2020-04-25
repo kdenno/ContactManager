@@ -1,12 +1,16 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import ContactsContext from "../../context/contact/contactContext";
 
 function ContactItem({ contact }) {
   const { id, name, phone, email, type } = contact;
   const contactscontext = useContext(ContactsContext);
-  const deleteContact = () =>{
+  const deleteContact = () => {
     contactscontext.deleteContact(id);
-  }
+    contactscontext.clearCurrent();
+  };
+  const setCurrentContact = () => {
+    contactscontext.setCurrent(contact);
+  };
   return (
     <div className="card bg-light">
       <h3 className="text-primary text-left">
@@ -24,20 +28,22 @@ function ContactItem({ contact }) {
       <ul>
         {email && (
           <li>
-            <i className="fas fa-envelope-open"></i> {' '}
-            {email}
+            <i className="fas fa-envelope-open"></i> {email}
           </li>
         )}
         {phone && (
           <li>
-            <i className="fas fa-phone"></i>  {' '}
-            {phone}
+            <i className="fas fa-phone"></i> {phone}
           </li>
         )}
       </ul>
       <p>
-        <button className="btn btn-dark btn-sm">Edit</button>
-        <button className="btn btn-danger btn-sm" onClick={deleteContact}>Delete</button>
+        <button className="btn btn-dark btn-sm" onClick={setCurrentContact}>
+          Edit
+        </button>
+        <button className="btn btn-danger btn-sm" onClick={deleteContact}>
+          Delete
+        </button>
       </p>
     </div>
   );

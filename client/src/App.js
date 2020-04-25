@@ -10,7 +10,7 @@ const App = () => {
   return (
     <ContactState>
       <Router>
-        <Fragment className="App">
+        <Fragment>
           <Nav title="Contact Manager" icon="fa fac" />
           <div className="container">
             <Switch>
