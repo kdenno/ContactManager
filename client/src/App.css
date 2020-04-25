@@ -394,10 +394,12 @@ table th {
 }
 .item-exit {
   opacity: 1;
+  transform: translateX(0)
 }
 .item-exit-active {
   opacity: 0;
-  transition: opacity 1000ms ease-in;
+  transform: translateX(1000px)
+  /* transition: opacity 1000ms ease-in; */
 }
 
 /* Mobile Styles */

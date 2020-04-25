@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 const Navbar = ({ title, icon }) => {
   return (
-    <Fragment>
-      <div className="navbar">
+    <Fragment className="navbar">
+  
       <div className="navbar bg-primary">
         <i className={icon}></i> {title}
         <ul>
@@ -17,7 +17,7 @@ const Navbar = ({ title, icon }) => {
           </li>
         </ul>
       </div>
-      </div>
+
     </Fragment>
   );
 };

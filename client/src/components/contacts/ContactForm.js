@@ -36,6 +36,7 @@ function ContactForm() {
     e.preventDefault();
     if(contactscontext.current) {
         contactscontext.updateContact(contact);
+        contactscontext.clearFilter();
         contactscontext.clearCurrent();
 
     }else {
