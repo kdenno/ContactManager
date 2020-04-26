@@ -38,8 +38,21 @@ const AuthState = (props) => {
     }
   };
 
-  const Login = (credentials) => {
-    dispatch({ type: LOGIN_SUCCESS });
+  const Login = (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post("/api/auth", formData, config)
+      .then((res) => {
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+        loadUser();
+      })
+      .catch((err) => {
+        dispatch({ type: LOGIN_FAIL, payload: err.response.data.error });
+      });
   };
 
   const LogOut = () => {
