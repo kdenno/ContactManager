@@ -8,6 +8,7 @@ import {
   FILTER_CONTACTS,
   REMOVE_ALERT,
   CLEAR_FILTER,
+  ADD_CONTACT_FAIL,
 } from "../ActionTypes";
 
 export default (state, action) => {
@@ -16,6 +17,11 @@ export default (state, action) => {
       return {
         ...state,
         contacts: [...state.contacts, action.payload],
+      };
+    case ADD_CONTACT_FAIL:
+      return {
+        ...state,
+        error: action.payload,
       };
     case DELETE_CONTACT:
       return {
@@ -37,7 +43,7 @@ export default (state, action) => {
         current: action.payload,
       };
     case FILTER_CONTACTS:
-      return { 
+      return {
         ...state,
         filtered: state.contacts.filter((contact) => {
           const regex = new RegExp(`${action.payload}`, "gi");

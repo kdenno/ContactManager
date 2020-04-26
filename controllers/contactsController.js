@@ -10,7 +10,7 @@ exports.createContacts = async (req, res, next) => {
   req.body.user = userId;
   try {
     const newContact = await Contacts.create(req.body);
-    return res.status(200).json({ data: newContact });
+    return res.status(200).json({ newContact });
   } catch (error) {
     return res.status(500).json({ error: "server error" });
   }

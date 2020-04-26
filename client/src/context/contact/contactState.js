@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import contactReducer from "./contactReducer";
 import ContactContext from "./contactContext";
-import * as uuid from "uuid";
+import axios from "axios";
 import {
   CLEAR_CURRENT,
   SET_ALERT,
@@ -12,41 +12,32 @@ import {
   FILTER_CONTACTS,
   REMOVE_ALERT,
   CLEAR_FILTER,
+  ADD_CONTACT_FAIL
 } from "../ActionTypes";
 
 const ContactState = (props) => {
   const initialState = {
-    contacts: [
-      {
-        id: 1,
-        name: "Jane Smith",
-        phone: "111-111-111",
-        email: "jane@gmail.com",
-        type: "professional",
-      },
-      {
-        id: 2,
-        name: "Julian Draxler",
-        phone: "222-222-222",
-        email: "julian@gmail.com",
-        type: "personal",
-      },
-      {
-        id: 3,
-        name: "Durell Johnson",
-        phone: "555-111-222",
-        email: "durrel@gmail.com",
-        type: "professional",
-      },
-    ],
+    contacts: [],
     current: null,
-    filtered: null
+    filtered: null,
+    error: null
   };
   const [state, dispatch] = useReducer(contactReducer, initialState);
   // create contact
-  const createContact = (contact) => {
-    contact.id = uuid.v4();
-    dispatch({ type: ADD_CONTACT, payload: contact });
+  const createContact = async (contact) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    try {
+      axios.post('/api/contacts', contact, config).then(res => {
+        dispatch({ type: ADD_CONTACT, payload: res.data.newContact });
+      })
+    } catch (error) {
+      dispatch({ type: ADD_CONTACT_FAIL, payload: error.response.data.error });
+    }
+    
   };
   // delete contact
   const deleteContact = (id) => {
