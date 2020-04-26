@@ -8,27 +8,31 @@ import ContactState from "./context/contact/contactState";
 import AuthState from "./context/auth/authState";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import AlertState from "./context/alert/alertState";
+import Alert from "./components/layout/Alerts";
 
 const App = () => {
   return (
-  <AuthState>
-    <ContactState>
-      <Router>
-        <Fragment>
-          <Nav title="Contact Manager" icon="fa fac" />
-          <div className="container">
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/about" exact component={About} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/register" exact component={Register} />
-            </Switch>
-          </div>
-        </Fragment>
-      </Router>
-    </ContactState>
-    </AuthState>
-   
+    <AlertState>
+      <AuthState> 
+        <ContactState>
+          <Router>
+            <Fragment>
+              <Nav title="Contact Manager" icon="fa fac" />
+              <div className="container">
+                <Alert />
+                <Switch>
+                  <Route path="/" exact component={Home} />
+                  <Route path="/about" exact component={About} />
+                  <Route path="/login" exact component={Login} />
+                  <Route path="/register" exact component={Register} />
+                </Switch>
+              </div>
+            </Fragment>
+          </Router>
+        </ContactState>
+      </AuthState>
+    </AlertState>
   );
 };
 

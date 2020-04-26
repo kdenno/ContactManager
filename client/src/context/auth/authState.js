@@ -1,40 +1,51 @@
 import React, { useReducer } from "react";
 import AuthReducer from "./authReducer";
 import AuthContext from "./authContext";
+import axios from "axios";
+
 import {
-    LOGIN_SUCCESS,
-    LOGIN_FAIL,
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
-    USER_LOADED,
-    AUTH_ERROR,
-    CLEAR_ERRORS,
-    LOGOUT,
-  } from "../ActionTypes";
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  CLEAR_ERRORS,
+  LOGOUT,
+} from "../ActionTypes";
 
 const AuthState = (props) => {
   const initialState = {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem("token"),
     user: null,
     isAuthenticated: false,
     loading: false,
-    error: null
+    error: null,
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
   const Login = (credentials) => {
-      dispatch({type: LOGIN_SUCCESS});
+    dispatch({ type: LOGIN_SUCCESS });
   };
   const LogOut = () => {
-    dispatch({type: LOGOUT});
+    dispatch({ type: LOGOUT });
   };
-  const Register = () => {
-    dispatch({type: REGISTER_SUCCESS});
+  const Register = (formData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    axios.post("http://localhost:8000/api/users", formData, config).then((res) => {
+        dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+      }).catch((err) => {
+        dispatch({ type: REGISTER_FAIL, payload: err.response.data.error });
+      });
   };
 
   return (
     <AuthContext.Provider
-      values={{
+      value={{
         token: state.token,
         user: state.user,
         isAuthenticated: state.isAuthenticated,

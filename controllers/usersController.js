@@ -16,7 +16,7 @@ exports.registerUser = async (req, res, next) => {
     }
     user = await User.create({ name, email, password });
     const token = user.getSignedJwtToken();
-    return res.json({ message: "User created", token: token });
+    return res.json({token });
   } catch (err) {
       console.log(err);
     return res.status(500).json({ error: "Server error" });
