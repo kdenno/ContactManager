@@ -17,12 +17,16 @@ const AlertState = (props) => {
       dispatch({ type: REMOVE_ALERT, payload: id });
     }, timeout);
   };
+  const clearErrors = () => {
+    dispatch({ type: REMOVE_ALERT });
+  };
 
   return (
     <AlertContext.Provider
       value={{
         alerts: state,
         triggerAlert,
+        clearErrors,
       }}
     >
       {props.children}

@@ -10,10 +10,18 @@ import {
 } from "../ActionTypes";
 export default (state, action) => {
   switch (action.type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload,
+        loading: false,
+        error: null,
+      };
     case LOGIN_SUCCESS:
       return {};
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', action.payload.token)
+      localStorage.setItem("token", action.payload.token);
       return {
         ...state,
         token: action.payload.token,
@@ -22,7 +30,8 @@ export default (state, action) => {
         error: null,
       };
     case REGISTER_FAIL:
-      localStorage.removeItem('token');
+    case AUTH_ERROR:
+      localStorage.removeItem("token");
       return {
         ...state,
         token: null,

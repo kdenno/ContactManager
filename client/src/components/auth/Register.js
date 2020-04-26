@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 
-function Register() {
+function Register(props) {
   const [user, setLogin] = useState({
     name: "",
     email: "",
@@ -10,20 +10,34 @@ function Register() {
     password: "",
     password2: "",
   });
+
   const alertcontext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
   const { name, email, password, password2 } = user;
+
+  useEffect(() => {
+    if(authContext.isAuthenticated) {
+      props.history.push('/');
+    }
+    if (authContext.error) {
+      // trigger alert
+      alertcontext.triggerAlert(authContext.error, "danger");
+      alertcontext.clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [authContext.error, props.history, authContext.isAuthenticated]);
+
   const onChange = (e) => {
     setLogin({ ...user, [e.target.name]: e.target.value });
   };
   const onSubmit = (e) => {
     e.preventDefault();
     if (name === "" || email === "" || password === "" || password2 === "") {
-      alertcontext.triggerAlert('Please fill up all fields', 'danger');
+      alertcontext.triggerAlert("Please fill up all fields", "danger");
     } else if (password !== password2) {
-      alertcontext.triggerAlert('Passwords dont match', 'danger');
+      alertcontext.triggerAlert("Passwords dont match", "danger");
     } else {
-     authContext.Register({name, email, password});
+      authContext.Register({ name, email, password });
     }
   };
   return (
@@ -31,11 +45,23 @@ function Register() {
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={name} onChange={onChange} required/>
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" value={email} onChange={onChange} required/>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={onChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password1">Password</label>
