@@ -22,7 +22,7 @@ exports.getContacts = async (req, res, next) => {
     const userContacts = await Contacts.find({ user: userId }).sort({
       data: -1,
     });
-    res.json({ data: userContacts });
+    res.json({ userContacts });
   } catch (error) {
     res.status(500).json({ error: "server error" });
   }

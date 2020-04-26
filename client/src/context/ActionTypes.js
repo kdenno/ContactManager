@@ -1,5 +1,7 @@
 export const ADD_CONTACT = "ADD_CONTACT";
 export const ADD_CONTACT_FAIL ="ADD_CONTACT_FAIL";
+export const GET_CONTACTS = "GET_CONTACTS";
+export const GET_CONTACTS_FAIL = "GET_CONTACTS_FAIL";
 export const DELETE_CONTACT = "DELETE_CONTACT";
 export const SET_CURRENT = "SET_CURRENT";
 export const CLEAR_CURRENT = "CLEAR_CURRENT";

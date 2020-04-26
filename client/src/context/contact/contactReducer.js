@@ -7,18 +7,26 @@ import {
   UPDATE_CONTACT,
   FILTER_CONTACTS,
   REMOVE_ALERT,
+  GET_CONTACTS,
+  GET_CONTACTS_FAIL,
   CLEAR_FILTER,
   ADD_CONTACT_FAIL,
 } from "../ActionTypes";
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_CONTACTS:
+      return {
+        ...state,
+        contacts: action.payload,
+      };
     case ADD_CONTACT:
       return {
         ...state,
         contacts: [...state.contacts, action.payload],
       };
     case ADD_CONTACT_FAIL:
+    case GET_CONTACTS:
       return {
         ...state,
         error: action.payload,

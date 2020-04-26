@@ -12,7 +12,9 @@ import {
   FILTER_CONTACTS,
   REMOVE_ALERT,
   CLEAR_FILTER,
-  ADD_CONTACT_FAIL
+  GET_CONTACTS,
+  ADD_CONTACT_FAIL,
+  GET_CONTACTS_FAIL
 } from "../ActionTypes";
 
 const ContactState = (props) => {
@@ -20,9 +22,22 @@ const ContactState = (props) => {
     contacts: [],
     current: null,
     filtered: null,
-    error: null
+    error: null,
+    loading: false
   };
   const [state, dispatch] = useReducer(contactReducer, initialState);
+  // Get user contacts 
+  const getContacts = async() => {
+    try {
+      axios.get('/api/contacts').then(res => {
+        dispatch({ type: GET_CONTACTS, payload: res.data.userContacts });
+
+      })
+    } catch (error) {
+      dispatch({ type: GET_CONTACTS_FAIL, payload: error.response.data.error });   
+    }
+
+  }
   // create contact
   const createContact = async (contact) => {
     const config = {
@@ -71,12 +86,14 @@ const ContactState = (props) => {
         contacts: state.contacts,
         current: state.current,
         filtered: state.filtered,
+        loading: state.loading,
         filterContacts,
         clearFilter,
         createContact,
         deleteContact,
         clearCurrent,
         updateContact,
+        getContacts,
         setCurrent,
       }}
     >
