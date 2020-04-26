@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import ContactsContext from "../../context/contact/contactContext";
 
 function ContactItem({ contact }) {
-  const { id, name, phone, email, type } = contact;
+  const { _id, name, phone, email, type } = contact;
   const contactscontext = useContext(ContactsContext);
   const deleteContact = () => {
-    contactscontext.deleteContact(id);
+    contactscontext.deleteContact(_id);
     contactscontext.clearCurrent();
   };
   const setCurrentContact = () => {

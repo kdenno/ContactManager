@@ -58,7 +58,7 @@ exports.updateContacts = async (req, res, next) => {
       { $set: updated },
       { new: true }
     );
-    return res.status(201).json({ data: updatedContact });
+    return res.status(201).json({ updatedContact });
   } catch (err) {
     return res.status(500).json({ error: "server error" });
   }
