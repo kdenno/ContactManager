@@ -1,6 +1,6 @@
 # CONTACT MANAGER
 
-> A full stack MERN App for users to manage their contacts both personal and professional. This mini project is built purely with the React Context API. It includes features like Authentication, Authorization, contact filters and many more
+> A full stack MERN App for users to manage their contacts both personal and professional. This project is built purely with the React Context API. It includes features like Authentication, Authorization, contact filters and many more
 
 
 ## Install dependencies
