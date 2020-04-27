@@ -15,7 +15,7 @@ const Navbar = ({ title, icon }) => {
     thelinks = (
       <Fragment>
         <li>
-          <Link to="/">Home</Link>
+    <a href="#!">Hi {user &&  user.name}</a>
         </li>
         <li>
           <a href="#!" onClick={onLogout}>LogOut</a>

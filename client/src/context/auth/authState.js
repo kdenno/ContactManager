@@ -38,40 +38,41 @@ const AuthState = (props) => {
     }
   };
 
-  const Login = (formData) => {
+  const Login = async (formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    axios
-      .post("/api/auth", formData, config)
-      .then((res) => {
+    try {
+      const res = await axios.post("/api/auth", formData, config);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+  
         loadUser();
-      })
-      .catch((err) => {
-        dispatch({ type: LOGIN_FAIL, payload: err.response.data.error });
-      });
+     
+      
+    } catch (err) {
+     
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.error });
+      
+    }
+  
   };
 
   const LogOut = () => {
     dispatch({ type: LOGOUT });
   };
 
-  const Register = (formData) => {
+  const Register = async (formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    axios
-      .post("/api/users", formData, config)
-      .then((res) => {
+    axios.post("/api/users", formData, config).then((res) => {
         dispatch({ type: REGISTER_SUCCESS, payload: res.data });
         loadUser();
-      })
-      .catch((err) => {
+      }).catch((err) => {
         dispatch({ type: REGISTER_FAIL, payload: err.response.data.error });
       });
   };
